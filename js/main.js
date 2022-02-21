@@ -1,11 +1,27 @@
-import { $, getStrTag, addImg } from "./domLibrary-1.js";
-const imagePath = "/image/main";
+import { $, addImg, addTag, setProperty } from "./dom-lib.js";
 
 class Main {
   constructor() {
     this.setJumbotron();
     this.setAdBanner();
     this.setDayTop();
+
+    this.addEvent();
+  }
+
+  addEvent() {
+    $("body").addEventListener("click", this.eventHandler.bind(this));
+  }
+
+  eventHandler(e) {
+    console.log("target:>>", e.target);
+    console.log("this :>> ", this);
+    const action = e.target.dataset.action;
+    if (action) this[action]();
+  }
+
+  home() {
+    console.log("안녕");
   }
 
   setJumbotron() {
@@ -73,30 +89,6 @@ class Main {
 
   setDayTop() {
     // 요일 연재 TOP
-    const $timer_images = document.querySelectorAll(".timer-image");
-    $timer_images.forEach(
-      (v) =>
-        (v.src =
-          "https://static-page.kakao.com/static/common/bmbadge_waitfree.svg?53cf25c84253dee8d32e66da7524dbaf")
-    );
-    const $man_images = document.querySelectorAll(".man-image");
-    $man_images.forEach(
-      (v) =>
-        (v.src =
-          "https://static-page.kakao.com/static/common/icon_read_count.png?817b1f83aa0dd8de232a68ac82efd871")
-    );
-    const $new_images = document.querySelectorAll(".new-image");
-    $new_images.forEach(
-      (v) =>
-        (v.src =
-          "https://static-page.kakao.com/static/common/icon_new.svg?4ae84a0f972e30119fb6fcfbb2f59bf9")
-    );
-    const $up_images = document.querySelectorAll(".up-image");
-    $up_images.forEach(
-      (v) =>
-        (v.src =
-          "https://static-page.kakao.com/static/common/icon_up.svg?51cfaf512283ca0e1eaca53414e35a3f")
-    );
 
     const today_top = [
       {
@@ -104,15 +96,15 @@ class Main {
           "//dn-img-page.kakao.com/download/resource?kid=dpadT7/hzhOgqBSHA/HpZA6H7vPawsODuGIQaQO0&filename=th2",
         box_name: "1위",
         title: "이번 생은 가주가 되겠습니다",
-        tag: "new",
+        tag: "new-image",
         hit: "122.7만명",
       },
       {
         imageURL:
-          "//dn-img-page.kakao.com/download/resource?kid=dpadT7/hzhOgqBSHA/HpZA6H7vPawsODuGIQaQO0&filename=th2",
+          "//dn-img-page.kakao.com/download/resource?kid=bhaZNx/hzhOgKHpz7/xbaDBtEqubGcBNaJ6pdta1&filename=th2",
         title: "이번 생은 가주가 되겠습니다",
         box_name: "2위",
-        tag: "up",
+        tag: "up-image",
         hit: "122.7만명",
       },
       {
@@ -143,7 +135,7 @@ class Main {
         imageURL:
           "//dn-img-page.kakao.com/download/resource?kid=dpadT7/hzhOgqBSHA/HpZA6H7vPawsODuGIQaQO0&filename=th2",
         title: "이번 생은 가주가 되겠습니다",
-        box_name: "10.0",
+        box_name: "★ 10.0",
         tag: "",
         hit: "122.7만명",
       },
@@ -151,7 +143,7 @@ class Main {
         imageURL:
           "//dn-img-page.kakao.com/download/resource?kid=dpadT7/hzhOgqBSHA/HpZA6H7vPawsODuGIQaQO0&filename=th2",
         title: "이번 생은 가주가 되겠습니다",
-        box_name: "9.8",
+        box_name: "★ 9.8",
         tag: "",
         hit: "122.7만명",
       },
@@ -159,7 +151,7 @@ class Main {
         imageURL:
           "//dn-img-page.kakao.com/download/resource?kid=dpadT7/hzhOgqBSHA/HpZA6H7vPawsODuGIQaQO0&filename=th2",
         title: "이번 생은 가주가 되겠습니다",
-        box_name: "9.6",
+        box_name: "★ 9.6",
         tag: "",
         hit: "122.7만명",
       },
@@ -167,7 +159,7 @@ class Main {
         imageURL:
           "//dn-img-page.kakao.com/download/resource?kid=dpadT7/hzhOgqBSHA/HpZA6H7vPawsODuGIQaQO0&filename=th2",
         title: "이번 생은 가주가 되겠습니다",
-        box_name: "9.9",
+        box_name: "★ 9.9",
         tag: "",
         hit: "122.7만명",
       },
@@ -175,15 +167,63 @@ class Main {
         imageURL:
           "//dn-img-page.kakao.com/download/resource?kid=dpadT7/hzhOgqBSHA/HpZA6H7vPawsODuGIQaQO0&filename=th2",
         title: "이번 생은 가주가 되겠습니다",
-        box_name: "9.9",
+        box_name: "★ 9.9",
         tag: "",
         hit: "122.7만명",
       },
     ];
 
-    today_top.forEach((v, i) => {
-      //   $(`toon-daytop_frame`);
+    // 요일 연재 TOP 창 렌더
+    // 호이말대로 이거 html부분을 좀 빼서
+    // 그냥 innerText로 필요한 태그에만 돔조작으로 값 집어넣어도 될듯?
+    today_top.forEach((v) => {
+      const $toon_daytop_frame = `
+        <div class="toon-daytop_frame">
+            <div class="toon-daytop_frame_box">
+                <img src=${v.imageURL} class="toon-daytop_frame__image"/>
+                <div class="toon-daytop_frame_box__rank flex-center">${v.box_name}
+                <img alt="timer-image" class="timer-image" /></div>
+            </div>
+            <div class="toon-daytop_frame__title text-ellipsis" >${v.title}</div>
+            <div class="toon-daytop_frame__detail flex-center">
+              <img class="${v.tag}" alt="${v.tag}" /><img
+                class="man-image"
+                alt=""
+              />${v.hit}
+            </div>
+        </div>`;
+
+      $(".toon-daytop_album").insertAdjacentHTML(
+        "beforeend",
+        $toon_daytop_frame
+      );
     });
+
+    // icon들.. 이것도 함수로 쉽게 넣어보자
+    const $timer_images = document.querySelectorAll(".timer-image");
+    $timer_images.forEach(
+      (v) =>
+        (v.src =
+          "https://static-page.kakao.com/static/common/bmbadge_waitfree.svg?53cf25c84253dee8d32e66da7524dbaf")
+    );
+    const $man_images = document.querySelectorAll(".man-image");
+    $man_images.forEach(
+      (v) =>
+        (v.src =
+          "https://static-page.kakao.com/static/common/icon_read_count.png?817b1f83aa0dd8de232a68ac82efd871")
+    );
+    const $new_images = document.querySelectorAll(".new-image");
+    $new_images.forEach(
+      (v) =>
+        (v.src =
+          "https://static-page.kakao.com/static/common/icon_new.svg?4ae84a0f972e30119fb6fcfbb2f59bf9")
+    );
+    const $up_images = document.querySelectorAll(".up-image");
+    $up_images.forEach(
+      (v) =>
+        (v.src =
+          "https://static-page.kakao.com/static/common/icon_up.svg?51cfaf512283ca0e1eaca53414e35a3f")
+    );
   }
 }
 

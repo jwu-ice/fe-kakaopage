@@ -32,4 +32,4 @@ function setProperty(selector, property, value) {
   $(selector).setAttribute(property, value);
 }
 
-export { $, getStrTag, addImg };
+export { $, getStrTag, addImg, addTag, setProperty };
