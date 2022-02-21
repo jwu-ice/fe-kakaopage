@@ -1,3 +1,18 @@
+.timer-image {
+  width: 16px;
+  height: 16px;
+}
+.man-image {
+  width: 11px;
+  height: 11px;
+}
+.new-image {
+  height: 13px;
+}
+.up-image {
+  height: 13px;
+}
+
 .toon-category {
   margin-top: 163px;
   width: 100%;
@@ -229,7 +244,6 @@
 }
 
 .toon-daytop_album {
-  position: relative;
   margin-top: 22px;
   width: 100%;
   display: flex;
@@ -241,7 +255,40 @@
   width: 120.6px;
 }
 
-.toon-daytop_frame_image-1 {
-  width: 120.2px;
-  height: 120.2px;
+.toon-daytop_frame_box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.toon-daytop_frame__image {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: none;
+  border-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.toon-daytop_frame_box__rank {
+  color: #ffd200;
+  background-color: #242526;
+  font-weight: 400;
+  height: 30px;
+  padding: 0 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.toon-daytop_frame__title {
+  color: #333;
+  line-height: 1.5;
+}
+
+.toon-daytop_frame__detail {
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 14px;
+  justify-content: flex-start;
 }
