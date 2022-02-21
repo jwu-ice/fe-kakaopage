@@ -125,8 +125,42 @@ table {
 input:focus {
   outline: none;
 }
+
+/* my 광역 */
+
+* {
+  box-sizing: border-box;
+  line-height: 1.4;
+  font-size: 16px;
+}
+
+body {
+  background-color: #eee;
+}
+
 a {
   color: inherit;
   text-decoration: none;
   cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
