@@ -4,8 +4,6 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "deploy": "gh-pages -d build",
-    "predeploy": "npm run build",
     "client": "",
     "server": "nodemon server.js",
     "dev": "",
