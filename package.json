@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
+    "predeploy": "npm run build",
     "client": "",
     "server": "nodemon server.js",
     "dev": "",
@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/sju02048/fe-kakaopage/issues"
   },
-  "homepage": "https://github.com/sju02048/fe-kakaopage",
+  "homepage": "https://sju02048.github.io/fe-kakaopage/",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.3",
